@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { ExternalLink, ChevronDown, ChevronUp } from 'lucide-react';
 import type { Recipe } from '../types';
+import { generateVideoLink, selectVideoPlatform, getPlatformName, type VideoPlatform } from '../utils/region';
 import './RecipeCard.css';
 
 interface RecipeCardProps {
@@ -10,6 +11,21 @@ interface RecipeCardProps {
 
 export const RecipeCard = ({ recipe }: RecipeCardProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [videoPlatform, setVideoPlatform] = useState<VideoPlatform>('youtube');
+  const [videoLink, setVideoLink] = useState('');
+
+  // 在组件挂载时检测地区并生成视频链接
+  useEffect(() => {
+    const initVideoLink = async () => {
+      const platform = await selectVideoPlatform();
+      setVideoPlatform(platform);
+
+      const link = generateVideoLink(recipe.name, platform, recipe.youtube);
+      setVideoLink(link);
+    };
+
+    initVideoLink();
+  }, [recipe.name, recipe.youtube]);
 
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
@@ -74,15 +90,17 @@ export const RecipeCard = ({ recipe }: RecipeCardProps) => {
           )}
         </div>
 
-        {recipe.youtube && (
+        {videoLink && (
           <a
-            href={recipe.youtube}
+            href={videoLink}
             target="_blank"
             rel="noopener noreferrer"
             className="youtube-link"
+            title={`在 ${getPlatformName(videoPlatform)} 上观看`}
           >
             <ExternalLink size={16} />
             观看视频教程
+            <span className="platform-badge">{getPlatformName(videoPlatform)}</span>
           </a>
         )}
       </div>

@@ -171,6 +171,16 @@
   box-shadow: var(--shadow);
 }
 
+.platform-badge {
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
 @media (max-width: 768px) {
   .recipe-image-container {
     height: 200px;

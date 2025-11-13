@@ -2,6 +2,7 @@ import { Header } from './components/Header';
 import { SearchForm } from './components/SearchForm';
 import { RecipeList } from './components/RecipeList';
 import { SuggestionsBanner } from './components/SuggestionsBanner';
+import { RegionDebugger } from './components/RegionDebugger';
 import { useRecipes } from './hooks/useRecipes';
 import type { RecipeSearchParams } from './types';
 import './App.css';
@@ -46,6 +47,8 @@ function App() {
           & Mastra Agents
         </p>
       </footer>
+      {/* 地区调试器 - 按 Ctrl+Shift+D 显示 */}
+      <RegionDebugger />
     </div>
   );
 }
