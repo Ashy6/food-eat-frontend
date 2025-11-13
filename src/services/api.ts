@@ -51,6 +51,12 @@ class FoodEatAPI {
       if (params?.limit) {
         queryParams.append('limit', String(params.limit));
       }
+      if (params?.model) {
+        queryParams.append('model', params.model);
+      }
+      if (params?.language) {
+        queryParams.append('language', params.language);
+      }
 
       const url = `/api/recipes${queryParams.toString() ? `?${queryParams.toString()}` : ''}`;
       const response = await this.client.get<RecipeAPIResponse>(url);

@@ -75,48 +75,6 @@ export const STRINGS = {
   },
 };
 
-// 分类选项（中英文映射）
-export const CATEGORY_OPTIONS = [
-  { value: '', label: '全部' },
-  { value: '素食', label: '素食' },
-  { value: '海鲜', label: '海鲜' },
-  { value: '甜点', label: '甜点' },
-  { value: '早餐', label: '早餐' },
-  { value: '面食', label: '面食' },
-  { value: '鸡肉', label: '鸡肉' },
-  { value: '羊肉', label: '羊肉' },
-  { value: '牛肉', label: '牛肉' },
-  { value: '猪肉', label: '猪肉' },
-  { value: '素菜', label: '纯素' },
-  { value: '开胃菜', label: '开胃菜' },
-];
-
-// 菜系选项（中英文映射）
-export const CUISINE_OPTIONS = [
-  { value: '', label: '全部' },
-  { value: '中国', label: '中国菜' },
-  { value: '意大利', label: '意大利菜' },
-  { value: '日本', label: '日本菜' },
-  { value: '美国', label: '美国菜' },
-  { value: '英国', label: '英国菜' },
-  { value: '法国', label: '法国菜' },
-  { value: '泰国', label: '泰国菜' },
-  { value: '印度', label: '印度菜' },
-  { value: '墨西哥', label: '墨西哥菜' },
-  { value: '希腊', label: '希腊菜' },
-  { value: '西班牙', label: '西班牙菜' },
-  { value: '土耳其', label: '土耳其菜' },
-  { value: '越南', label: '越南菜' },
-  { value: '摩洛哥', label: '摩洛哥菜' },
-  { value: '克罗地亚', label: '克罗地亚菜' },
-  { value: '爱尔兰', label: '爱尔兰菜' },
-  { value: '牙买加', label: '牙买加菜' },
-  { value: '俄罗斯', label: '俄罗斯菜' },
-  { value: '波兰', label: '波兰菜' },
-  { value: '葡萄牙', label: '葡萄牙菜' },
-  { value: '马来西亚', label: '马来西亚菜' },
-];
-
 /**
  * 获取友好的错误消息
  */

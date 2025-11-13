@@ -3,6 +3,7 @@ import { SearchForm } from './components/SearchForm';
 import { RecipeList } from './components/RecipeList';
 import { SuggestionsBanner } from './components/SuggestionsBanner';
 import { RegionDebugger } from './components/RegionDebugger';
+import { ChatBot } from './components/ChatBot';
 import { useRecipes } from './hooks/useRecipes';
 import { useLanguage } from './contexts/LanguageContext';
 import type { RecipeSearchParams } from './types';
@@ -51,6 +52,8 @@ function App() {
       </footer>
       {/* 地区调试器 - 按 Ctrl+Shift+D 显示 */}
       <RegionDebugger />
+      {/* AI 聊天助手 */}
+      <ChatBot />
     </div>
   );
 }

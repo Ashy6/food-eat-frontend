@@ -18,6 +18,8 @@ export interface RecipeSearchParams {
   category?: string;
   cuisine?: string;
   limit?: number;
+  model?: string;
+  language?: 'zh-CN' | 'en-US';
 }
 
 // 新的 API 响应结构
@@ -47,54 +49,13 @@ export interface ApiResponse<T> {
   success: boolean;
 }
 
-export type MealCategory =
-  | 'Beef'
-  | 'Chicken'
-  | 'Dessert'
-  | 'Lamb'
-  | 'Miscellaneous'
-  | 'Pasta'
-  | 'Pork'
-  | 'Seafood'
-  | 'Side'
-  | 'Starter'
-  | 'Vegan'
-  | 'Vegetarian'
-  | 'Breakfast'
-  | 'Goat';
+export type MealCategory = string;
 
-export type Cuisine =
-  | 'American'
-  | 'British'
-  | 'Canadian'
-  | 'Chinese'
-  | 'Croatian'
-  | 'Dutch'
-  | 'Egyptian'
-  | 'Filipino'
-  | 'French'
-  | 'Greek'
-  | 'Indian'
-  | 'Irish'
-  | 'Italian'
-  | 'Jamaican'
-  | 'Japanese'
-  | 'Kenyan'
-  | 'Malaysian'
-  | 'Mexican'
-  | 'Moroccan'
-  | 'Polish'
-  | 'Portuguese'
-  | 'Russian'
-  | 'Spanish'
-  | 'Thai'
-  | 'Tunisian'
-  | 'Turkish'
-  | 'Vietnamese';
+export type Cuisine = string;
 
 // 分类选项（中英文映射）
 export interface CategoryOption {
-  value: MealCategory;
+  value: string;
   label: string;
 }
 
@@ -117,7 +78,7 @@ export const CATEGORY_OPTIONS: CategoryOption[] = [
 
 // 菜系选项（中英文映射）
 export interface CuisineOption {
-  value: Cuisine;
+  value: string;
   label: string;
 }
 

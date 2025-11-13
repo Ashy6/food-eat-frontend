@@ -33,7 +33,7 @@ const translations: Record<Language, Record<string, string>> = {
     'search.categoryPlaceholder': '例如: 意面, 海鲜, 甜点',
     'search.cuisine': '菜系',
     'search.cuisineAll': '全部菜系',
-    'search.cuisinePlaceholder': '例如: 埃及, 中国, 日本',
+    'search.cuisinePlaceholder': '例如: 川菜, 山西菜, 粤菜',
     'search.limit': '数量',
     'search.button': '搜索食谱',
     'search.random': '随机推荐',
@@ -60,6 +60,17 @@ const translations: Record<Language, Record<string, string>> = {
     // Language
     'language.zhCN': '简体中文',
     'language.enUS': 'English',
+
+    // Chat
+    'chat.title': 'AI 美食助手',
+    'chat.placeholder': '问我今天吃什么...',
+    'chat.send': '发送',
+    'chat.quickAction': '怎么做',
+    'chat.typing': 'AI 正在思考...',
+    'chat.error': '发送失败，请重试',
+    'chat.open': '打开聊天',
+    'chat.close': '关闭',
+    'chat.welcome': '你好！我是 AI 美食助手，可以帮你推荐今天吃什么。试试问我"今天吃什么"或者"推荐一道简单的菜"吧！',
   },
   'en-US': {
     // Header
@@ -101,6 +112,17 @@ const translations: Record<Language, Record<string, string>> = {
     // Language
     'language.zhCN': '简体中文',
     'language.enUS': 'English',
+
+    // Chat
+    'chat.title': 'AI Food Assistant',
+    'chat.placeholder': 'Ask me what to eat today...',
+    'chat.send': 'Send',
+    'chat.quickAction': 'How to make',
+    'chat.typing': 'AI is thinking...',
+    'chat.error': 'Failed to send, please retry',
+    'chat.open': 'Open Chat',
+    'chat.close': 'Close',
+    'chat.welcome': 'Hello! I\'m your AI food assistant. I can help you decide what to eat today. Try asking "What should I eat today" or "Recommend an easy dish"!',
   },
 };
 

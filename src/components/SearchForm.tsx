@@ -11,17 +11,29 @@ interface SearchFormProps {
 }
 
 export const SearchForm = ({ onSearch, onRandomSearch, loading }: SearchFormProps) => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [ingredients, setIngredients] = useState('');
   const [category, setCategory] = useState('');
   const [cuisine, setCuisine] = useState('');
   const [limit, setLimit] = useState(5);
+  const [validationError, setValidationError] = useState('');
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    setValidationError('');
+
+    // Validate: require at least one search parameter besides limit
+    if (!ingredients.trim() && !category && !cuisine) {
+      const errorMsg = language === 'zh-CN'
+        ? '请至少填写一个食材 / 分类 / 菜系'
+        : 'Please provide at least one ingredient, category, or cuisine';
+      setValidationError(errorMsg);
+      return;
+    }
 
     const params: RecipeSearchParams = {
       limit,
+      language,
     };
 
     if (ingredients.trim()) {
@@ -46,6 +58,19 @@ export const SearchForm = ({ onSearch, onRandomSearch, loading }: SearchFormProp
 
   return (
     <form className="search-form" onSubmit={handleSubmit}>
+      {validationError && (
+        <div className="validation-error" style={{
+          padding: '12px',
+          marginBottom: '16px',
+          backgroundColor: '#fee2e2',
+          border: '1px solid #fecaca',
+          borderRadius: '8px',
+          color: '#991b1b',
+          fontSize: '14px'
+        }}>
+          {validationError}
+        </div>
+      )}
       <div className="form-grid">
         <div className="form-group">
           <label htmlFor="ingredients">{t('search.ingredients')}</label>
