@@ -1,6 +1,5 @@
 import { useState, FormEvent } from 'react';
 import { Search, Shuffle } from 'lucide-react';
-import { CATEGORY_OPTIONS, CUISINE_OPTIONS } from '../types';
 import { useLanguage } from '../contexts/LanguageContext';
 import type { RecipeSearchParams } from '../types';
 import './SearchForm.css';
@@ -62,36 +61,26 @@ export const SearchForm = ({ onSearch, onRandomSearch, loading }: SearchFormProp
 
         <div className="form-group">
           <label htmlFor="category">{t('search.category')}</label>
-          <select
+          <input
             id="category"
+            type="text"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
+            placeholder={t('search.categoryPlaceholder')}
             disabled={loading}
-          >
-            <option value="">{t('search.categoryAll')}</option>
-            {CATEGORY_OPTIONS.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
+          />
         </div>
 
         <div className="form-group">
           <label htmlFor="cuisine">{t('search.cuisine')}</label>
-          <select
+          <input
             id="cuisine"
+            type="text"
             value={cuisine}
             onChange={(e) => setCuisine(e.target.value)}
+            placeholder={t('search.cuisinePlaceholder')}
             disabled={loading}
-          >
-            <option value="">{t('search.cuisineAll')}</option>
-            {CUISINE_OPTIONS.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
+          />
         </div>
 
         <div className="form-group">
