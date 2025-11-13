@@ -1,0 +1,52 @@
+.header {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 1.5rem 2rem;
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--primary-color);
+}
+
+.logo h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.tagline {
+  color: var(--dark-color);
+  font-size: 1rem;
+  opacity: 0.8;
+  margin-left: 3rem;
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 1rem;
+  }
+
+  .logo h1 {
+    font-size: 1.5rem;
+  }
+
+  .tagline {
+    font-size: 0.875rem;
+    margin-left: 2.5rem;
+  }
+}
