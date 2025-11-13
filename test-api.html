@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API 测试工具</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        button {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #ff5252;
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 8px;
+            border-left: 4px solid #4ecdc4;
+        }
+        .error {
+            border-left-color: #ff6b6b;
+        }
+        .success {
+            border-left-color: #51cf66;
+        }
+        pre {
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .loading {
+            color: #666;
+        }
+        .info {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Food Eat API 测试工具</h1>
+
+        <div class="info">
+            <p><strong>开发环境：</strong>请求会通过 Vite 代理转发到后端</p>
+            <p><strong>测试地址：</strong>/api/recipes</p>
+        </div>
+
+        <div>
+            <button onclick="testRandomRecipes()">测试随机食谱</button>
+            <button onclick="testByCategory()">测试分类搜索</button>
+            <button onclick="testByCuisine()">测试菜系搜索</button>
+            <button onclick="testByIngredients()">测试食材搜索</button>
+        </div>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const resultDiv = document.getElementById('result');
+
+        function showLoading() {
+            resultDiv.className = 'result loading';
+            resultDiv.innerHTML = '<p>⏳ 请求中...</p>';
+        }
+
+        function showResult(data, status = 'success') {
+            resultDiv.className = `result ${status}`;
+            resultDiv.innerHTML = `
+                <h3>${status === 'success' ? '✅ 成功' : '❌ 失败'}</h3>
+                <pre>${JSON.stringify(data, null, 2)}</pre>
+            `;
+        }
+
+        function showError(error) {
+            resultDiv.className = 'result error';
+            resultDiv.innerHTML = `
+                <h3>❌ 错误</h3>
+                <p><strong>错误信息：</strong>${error.message}</p>
+                <p><strong>提示：</strong>
+                    <ul>
+                        <li>确保开发服务器正在运行（npm run dev）</li>
+                        <li>检查浏览器控制台是否有 CORS 错误</li>
+                        <li>确认 vite.config.ts 中的代理配置正确</li>
+                    </ul>
+                </p>
+            `;
+        }
+
+        async function testAPI(params = {}) {
+            showLoading();
+
+            const queryString = new URLSearchParams(params).toString();
+            const url = `/api/recipes${queryString ? '?' + queryString : ''}`;
+
+            console.log('Testing URL:', url);
+
+            try {
+                const response = await fetch(url);
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                const data = await response.json();
+                console.log('Response:', data);
+                showResult(data, 'success');
+            } catch (error) {
+                console.error('Error:', error);
+                showError(error);
+            }
+        }
+
+        function testRandomRecipes() {
+            testAPI({ limit: 3 });
+        }
+
+        function testByCategory() {
+            testAPI({ category: 'Vegetarian', limit: 3 });
+        }
+
+        function testByCuisine() {
+            testAPI({ cuisine: 'Italian', limit: 3 });
+        }
+
+        function testByIngredients() {
+            testAPI({ ingredients: 'chicken', limit: 3 });
+        }
+
+        // 页面加载时自动测试一次
+        window.addEventListener('load', () => {
+            console.log('API Test Tool loaded');
+            console.log('Environment:', import.meta.env?.MODE || 'development');
+        });
+    </script>
+</body>
+</html>

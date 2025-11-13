@@ -183,6 +183,26 @@ food-eat-frontend/
 - [Mastra Framework](https://mastra.ai/) - AI Agents 框架
 - [TheMealDB](https://www.themealdb.com/) - 食谱数据源
 
+## 🔧 常见问题
+
+### CORS 跨域问题
+
+如果遇到 CORS 错误，项目已配置 Vite 代理解决开发环境的跨域问题。
+
+**开发环境：**
+
+- Vite 会自动将 `/api` 请求代理到后端服务器
+- 无需额外配置，直接运行 `npm run dev` 即可
+
+**生产环境：**
+
+- 需要后端服务器配置 CORS 响应头
+- 详见 [CORS_FIX.md](CORS_FIX.md)
+
+### 测试 API 连接
+
+访问 `http://localhost:3000/test-api.html` 使用内置的 API 测试工具。
+
 ## 📝 开发计划
 
 - [ ] 添加食谱收藏功能
