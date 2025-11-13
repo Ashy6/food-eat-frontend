@@ -33,7 +33,7 @@ export const RecipeCard = ({ recipe }: RecipeCardProps) => {
       <div className="recipe-content">
         <h2 className="recipe-title">{recipe.name}</h2>
 
-        {recipe.tags && recipe.tags.length > 0 && (
+        {recipe.tags && Array.isArray(recipe.tags) && recipe.tags.length > 0 && (
           <div className="recipe-tags">
             {recipe.tags.map((tag, index) => (
               <span key={index} className="tag">
@@ -74,9 +74,9 @@ export const RecipeCard = ({ recipe }: RecipeCardProps) => {
           )}
         </div>
 
-        {recipe.youtubeUrl && (
+        {recipe.youtube && (
           <a
-            href={recipe.youtubeUrl}
+            href={recipe.youtube}
             target="_blank"
             rel="noopener noreferrer"
             className="youtube-link"

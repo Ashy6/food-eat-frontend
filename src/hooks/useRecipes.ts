@@ -4,6 +4,8 @@ import type { Recipe, RecipeSearchParams } from '../types';
 
 export const useRecipes = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [suggestions, setSuggestions] = useState<string>('');
+  const [source, setSource] = useState<string>('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -15,14 +17,20 @@ export const useRecipes = () => {
       const response = await foodEatAPI.getRecipes(params);
 
       if (response.success && response.data) {
-        setRecipes(response.data);
+        setRecipes(response.data.recipes || []);
+        setSuggestions(response.data.suggestions || '');
+        setSource(response.data.source || '');
       } else {
         setError(response.error || '获取食谱失败');
         setRecipes([]);
+        setSuggestions('');
+        setSource('');
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : '未知错误');
       setRecipes([]);
+      setSuggestions('');
+      setSource('');
     } finally {
       setLoading(false);
     }
@@ -36,14 +44,20 @@ export const useRecipes = () => {
       const response = await foodEatAPI.getRandomRecipes(limit);
 
       if (response.success && response.data) {
-        setRecipes(response.data);
+        setRecipes(response.data.recipes || []);
+        setSuggestions(response.data.suggestions || '');
+        setSource(response.data.source || '');
       } else {
         setError(response.error || '获取随机食谱失败');
         setRecipes([]);
+        setSuggestions('');
+        setSource('');
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : '未知错误');
       setRecipes([]);
+      setSuggestions('');
+      setSource('');
     } finally {
       setLoading(false);
     }
@@ -51,11 +65,15 @@ export const useRecipes = () => {
 
   const clearRecipes = useCallback(() => {
     setRecipes([]);
+    setSuggestions('');
+    setSource('');
     setError(null);
   }, []);
 
   return {
     recipes,
+    suggestions,
+    source,
     loading,
     error,
     fetchRecipes,

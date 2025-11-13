@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
-import type { Recipe, RecipeSearchParams, ApiResponse } from '../types';
+import type { RecipeSearchParams, ApiResponse, RecipeAPIResponse } from '../types';
 
 // 配置 API 基础地址
 // 开发环境使用代理，生产环境使用完整 URL
@@ -32,9 +32,9 @@ class FoodEatAPI {
   /**
    * 获取食谱推荐
    * @param params 搜索参数
-   * @returns 食谱列表
+   * @returns 完整的 API 响应（包含建议、食谱列表等）
    */
-  async getRecipes(params?: RecipeSearchParams): Promise<ApiResponse<Recipe[]>> {
+  async getRecipes(params?: RecipeSearchParams): Promise<ApiResponse<RecipeAPIResponse>> {
     try {
       const queryParams = new URLSearchParams();
 
@@ -52,7 +52,7 @@ class FoodEatAPI {
       }
 
       const url = `/api/recipes${queryParams.toString() ? `?${queryParams.toString()}` : ''}`;
-      const response = await this.client.get<Recipe[]>(url);
+      const response = await this.client.get<RecipeAPIResponse>(url);
 
       return {
         data: response.data,
@@ -69,9 +69,9 @@ class FoodEatAPI {
   /**
    * 获取随机食谱推荐
    * @param limit 数量限制
-   * @returns 食谱列表
+   * @returns 完整的 API 响应
    */
-  async getRandomRecipes(limit: number = 5): Promise<ApiResponse<Recipe[]>> {
+  async getRandomRecipes(limit: number = 5): Promise<ApiResponse<RecipeAPIResponse>> {
     return this.getRecipes({ limit });
   }
 
@@ -79,9 +79,9 @@ class FoodEatAPI {
    * 根据食材搜索食谱
    * @param ingredients 食材（逗号分隔）
    * @param limit 数量限制
-   * @returns 食谱列表
+   * @returns 完整的 API 响应
    */
-  async searchByIngredients(ingredients: string, limit: number = 5): Promise<ApiResponse<Recipe[]>> {
+  async searchByIngredients(ingredients: string, limit: number = 5): Promise<ApiResponse<RecipeAPIResponse>> {
     return this.getRecipes({ ingredients, limit });
   }
 
@@ -89,9 +89,9 @@ class FoodEatAPI {
    * 根据分类搜索食谱
    * @param category 分类
    * @param limit 数量限制
-   * @returns 食谱列表
+   * @returns 完整的 API 响应
    */
-  async searchByCategory(category: string, limit: number = 5): Promise<ApiResponse<Recipe[]>> {
+  async searchByCategory(category: string, limit: number = 5): Promise<ApiResponse<RecipeAPIResponse>> {
     return this.getRecipes({ category, limit });
   }
 
@@ -99,9 +99,9 @@ class FoodEatAPI {
    * 根据菜系搜索食谱
    * @param cuisine 菜系
    * @param limit 数量限制
-   * @returns 食谱列表
+   * @returns 完整的 API 响应
    */
-  async searchByCuisine(cuisine: string, limit: number = 5): Promise<ApiResponse<Recipe[]>> {
+  async searchByCuisine(cuisine: string, limit: number = 5): Promise<ApiResponse<RecipeAPIResponse>> {
     return this.getRecipes({ cuisine, limit });
   }
 }

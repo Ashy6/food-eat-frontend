@@ -1,12 +1,13 @@
 import { Header } from './components/Header';
 import { SearchForm } from './components/SearchForm';
 import { RecipeList } from './components/RecipeList';
+import { SuggestionsBanner } from './components/SuggestionsBanner';
 import { useRecipes } from './hooks/useRecipes';
 import type { RecipeSearchParams } from './types';
 import './App.css';
 
 function App() {
-  const { recipes, loading, error, fetchRecipes, fetchRandomRecipes } = useRecipes();
+  const { recipes, suggestions, source, loading, error, fetchRecipes, fetchRandomRecipes } = useRecipes();
 
   const handleSearch = (params: RecipeSearchParams) => {
     fetchRecipes(params);
@@ -26,6 +27,9 @@ function App() {
             onRandomSearch={handleRandomSearch}
             loading={loading}
           />
+          {suggestions && !loading && !error && (
+            <SuggestionsBanner suggestions={suggestions} source={source} />
+          )}
           <RecipeList recipes={recipes} loading={loading} error={error} />
         </div>
       </main>
