@@ -1,6 +1,7 @@
 import { useState, FormEvent } from 'react';
 import { Search, Shuffle } from 'lucide-react';
-import type { RecipeSearchParams, MealCategory, Cuisine } from '../types';
+import { CATEGORY_OPTIONS, CUISINE_OPTIONS } from '../types';
+import type { RecipeSearchParams } from '../types';
 import './SearchForm.css';
 
 interface SearchFormProps {
@@ -8,16 +9,6 @@ interface SearchFormProps {
   onRandomSearch: () => void;
   loading: boolean;
 }
-
-const CATEGORIES: MealCategory[] = [
-  'Beef', 'Chicken', 'Dessert', 'Lamb', 'Pasta', 'Pork',
-  'Seafood', 'Vegetarian', 'Vegan', 'Breakfast', 'Starter'
-];
-
-const CUISINES: Cuisine[] = [
-  'American', 'British', 'Chinese', 'French', 'Greek', 'Indian',
-  'Italian', 'Japanese', 'Mexican', 'Thai', 'Turkish'
-];
 
 export const SearchForm = ({ onSearch, onRandomSearch, loading }: SearchFormProps) => {
   const [ingredients, setIngredients] = useState('');
@@ -76,9 +67,9 @@ export const SearchForm = ({ onSearch, onRandomSearch, loading }: SearchFormProp
             disabled={loading}
           >
             <option value="">全部分类</option>
-            {CATEGORIES.map((cat) => (
-              <option key={cat} value={cat}>
-                {cat}
+            {CATEGORY_OPTIONS.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
               </option>
             ))}
           </select>
@@ -93,9 +84,9 @@ export const SearchForm = ({ onSearch, onRandomSearch, loading }: SearchFormProp
             disabled={loading}
           >
             <option value="">全部菜系</option>
-            {CUISINES.map((cuis) => (
-              <option key={cuis} value={cuis}>
-                {cuis}
+            {CUISINE_OPTIONS.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
               </option>
             ))}
           </select>
