@@ -1,4 +1,5 @@
 import { RecipeCard } from './RecipeCard';
+import { useLanguage } from '../contexts/LanguageContext';
 import type { Recipe } from '../types';
 import './RecipeList.css';
 
@@ -9,11 +10,13 @@ interface RecipeListProps {
 }
 
 export const RecipeList = ({ recipes, loading, error }: RecipeListProps) => {
+  const { t } = useLanguage();
+
   if (loading) {
     return (
       <div className="loading-container">
         <div className="spinner"></div>
-        <p>正在获取美食推荐...</p>
+        <p>{t('list.loading')}</p>
       </div>
     );
   }
@@ -25,7 +28,7 @@ export const RecipeList = ({ recipes, loading, error }: RecipeListProps) => {
           {error}
         </p>
         <p className="error-hint">
-          请检查网络连接或稍后重试
+          {t('list.error')}
         </p>
       </div>
     );
@@ -34,9 +37,9 @@ export const RecipeList = ({ recipes, loading, error }: RecipeListProps) => {
   if (recipes.length === 0) {
     return (
       <div className="empty-container">
-        <p>还没有找到食谱</p>
+        <p>{t('list.empty')}</p>
         <p className="empty-hint">
-          试试搜索或点击"随机推荐"按钮
+          {t('list.emptyHint')}
         </p>
       </div>
     );

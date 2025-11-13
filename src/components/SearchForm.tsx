@@ -1,6 +1,7 @@
 import { useState, FormEvent } from 'react';
 import { Search, Shuffle } from 'lucide-react';
 import { CATEGORY_OPTIONS, CUISINE_OPTIONS } from '../types';
+import { useLanguage } from '../contexts/LanguageContext';
 import type { RecipeSearchParams } from '../types';
 import './SearchForm.css';
 
@@ -11,6 +12,7 @@ interface SearchFormProps {
 }
 
 export const SearchForm = ({ onSearch, onRandomSearch, loading }: SearchFormProps) => {
+  const { t } = useLanguage();
   const [ingredients, setIngredients] = useState('');
   const [category, setCategory] = useState('');
   const [cuisine, setCuisine] = useState('');
@@ -47,26 +49,26 @@ export const SearchForm = ({ onSearch, onRandomSearch, loading }: SearchFormProp
     <form className="search-form" onSubmit={handleSubmit}>
       <div className="form-grid">
         <div className="form-group">
-          <label htmlFor="ingredients">食材</label>
+          <label htmlFor="ingredients">{t('search.ingredients')}</label>
           <input
             id="ingredients"
             type="text"
             value={ingredients}
             onChange={(e) => setIngredients(e.target.value)}
-            placeholder="例如: chicken, tomato"
+            placeholder={t('search.ingredientsPlaceholder')}
             disabled={loading}
           />
         </div>
 
         <div className="form-group">
-          <label htmlFor="category">分类</label>
+          <label htmlFor="category">{t('search.category')}</label>
           <select
             id="category"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
             disabled={loading}
           >
-            <option value="">全部分类</option>
+            <option value="">{t('search.categoryAll')}</option>
             {CATEGORY_OPTIONS.map((option) => (
               <option key={option.value} value={option.value}>
                 {option.label}
@@ -76,14 +78,14 @@ export const SearchForm = ({ onSearch, onRandomSearch, loading }: SearchFormProp
         </div>
 
         <div className="form-group">
-          <label htmlFor="cuisine">菜系</label>
+          <label htmlFor="cuisine">{t('search.cuisine')}</label>
           <select
             id="cuisine"
             value={cuisine}
             onChange={(e) => setCuisine(e.target.value)}
             disabled={loading}
           >
-            <option value="">全部菜系</option>
+            <option value="">{t('search.cuisineAll')}</option>
             {CUISINE_OPTIONS.map((option) => (
               <option key={option.value} value={option.value}>
                 {option.label}
@@ -93,7 +95,7 @@ export const SearchForm = ({ onSearch, onRandomSearch, loading }: SearchFormProp
         </div>
 
         <div className="form-group">
-          <label htmlFor="limit">数量</label>
+          <label htmlFor="limit">{t('search.limit')}</label>
           <input
             id="limit"
             type="number"
@@ -109,7 +111,7 @@ export const SearchForm = ({ onSearch, onRandomSearch, loading }: SearchFormProp
       <div className="form-actions">
         <button type="submit" className="btn btn-primary" disabled={loading}>
           <Search size={20} />
-          搜索食谱
+          {t('search.button')}
         </button>
         <button
           type="button"
@@ -118,7 +120,7 @@ export const SearchForm = ({ onSearch, onRandomSearch, loading }: SearchFormProp
           disabled={loading}
         >
           <Shuffle size={20} />
-          随机推荐
+          {t('search.random')}
         </button>
       </div>
     </form>

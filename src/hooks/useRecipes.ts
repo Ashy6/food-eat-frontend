@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
 import { foodEatAPI } from '../services/api';
 import type { Recipe, RecipeSearchParams } from '../types';
+import { STRINGS, getFriendlyErrorMessage } from '../constants/strings';
 
 export const useRecipes = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
@@ -21,13 +22,13 @@ export const useRecipes = () => {
         setSuggestions(response.data.suggestions || '');
         setSource(response.data.source || '');
       } else {
-        setError(response.error || '获取食谱失败');
+        setError(response.error || STRINGS.ERROR.FETCH_FAILED);
         setRecipes([]);
         setSuggestions('');
         setSource('');
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : '未知错误');
+      setError(getFriendlyErrorMessage(err));
       setRecipes([]);
       setSuggestions('');
       setSource('');
@@ -48,13 +49,13 @@ export const useRecipes = () => {
         setSuggestions(response.data.suggestions || '');
         setSource(response.data.source || '');
       } else {
-        setError(response.error || '获取随机食谱失败');
+        setError(response.error || STRINGS.ERROR.RANDOM_FETCH_FAILED);
         setRecipes([]);
         setSuggestions('');
         setSource('');
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : '未知错误');
+      setError(getFriendlyErrorMessage(err));
       setRecipes([]);
       setSuggestions('');
       setSource('');

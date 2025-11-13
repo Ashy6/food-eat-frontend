@@ -29,6 +29,29 @@
   margin: 0;
 }
 
+.language-selector {
+  margin-left: auto;
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--primary-color);
+  border-radius: 8px;
+  background: white;
+  color: var(--dark-color);
+  font-size: 0.938rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.language-selector:hover {
+  background: var(--primary-color);
+  color: white;
+}
+
+.language-selector:focus {
+  box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.2);
+}
+
 .tagline {
   color: var(--dark-color);
   font-size: 1rem;

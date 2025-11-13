@@ -1,5 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 import type { RecipeSearchParams, ApiResponse, RecipeAPIResponse } from '../types';
+import { getFriendlyErrorMessage } from '../constants/strings';
 
 // 配置 API 基础地址
 // 开发环境使用代理，生产环境使用完整 URL
@@ -60,7 +61,7 @@ class FoodEatAPI {
       };
     } catch (error) {
       return {
-        error: error instanceof Error ? error.message : '获取食谱失败',
+        error: getFriendlyErrorMessage(error),
         success: false,
       };
     }

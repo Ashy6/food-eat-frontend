@@ -4,10 +4,12 @@ import { RecipeList } from './components/RecipeList';
 import { SuggestionsBanner } from './components/SuggestionsBanner';
 import { RegionDebugger } from './components/RegionDebugger';
 import { useRecipes } from './hooks/useRecipes';
+import { useLanguage } from './contexts/LanguageContext';
 import type { RecipeSearchParams } from './types';
 import './App.css';
 
 function App() {
+  const { t } = useLanguage();
   const { recipes, suggestions, source, loading, error, fetchRecipes, fetchRandomRecipes } = useRecipes();
 
   const handleSearch = (params: RecipeSearchParams) => {
@@ -36,7 +38,7 @@ function App() {
       </main>
       <footer className="footer">
         <p>
-          Powered by{' '}
+          {t('footer.poweredBy')}{' '}
           <a
             href="https://github.com/Ashy6/food-eat"
             target="_blank"
@@ -44,7 +46,7 @@ function App() {
           >
             Food Eat API
           </a>{' '}
-          & Mastra Agents
+          {t('footer.and')} Mastra Agents
         </p>
       </footer>
       {/* 地区调试器 - 按 Ctrl+Shift+D 显示 */}

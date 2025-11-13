@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getRegion, getPlatformName, selectVideoPlatform, type Region, type VideoPlatform } from '../utils/region';
+import { useLanguage } from '../contexts/LanguageContext';
 import './RegionDebugger.css';
 
 /**
@@ -7,6 +8,7 @@ import './RegionDebugger.css';
  * 开发时可以显示当前检测到的地区和视频平台
  */
 export const RegionDebugger = () => {
+  const { language } = useLanguage();
   const [region, setRegion] = useState<Region | null>(null);
   const [platform, setPlatform] = useState<VideoPlatform | null>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -20,7 +22,7 @@ export const RegionDebugger = () => {
     };
 
     init();
-  }, []);
+  }, [language]);
 
   // 仅在开发环境显示，或按 Ctrl+Shift+D 切换显示
   useEffect(() => {
@@ -55,6 +57,12 @@ export const RegionDebugger = () => {
       <h4>🧪 地区调试器</h4>
       <div className="debugger-info">
         <p>
+          <strong>当前语言:</strong>{' '}
+          <span className="platform-badge-debug">
+            {language === 'zh-CN' ? '简体中文' : 'English'}
+          </span>
+        </p>
+        <p>
           <strong>检测地区:</strong>{' '}
           <span className={`region-badge ${region}`}>
             {region === 'CN' ? '中国大陆 🇨🇳' : '其他地区 🌍'}
@@ -66,7 +74,7 @@ export const RegionDebugger = () => {
         </p>
         <p className="hint">
           <small>
-            <strong>检测依据:</strong> 时区、语言设置和 IP 地理位置
+            <strong>检测依据:</strong> 优先使用语言设置，其次是时区、语言环境和 IP 地理位置
           </small>
         </p>
       </div>

@@ -177,15 +177,25 @@ export async function canAccessYouTube(): Promise<boolean> {
 /**
  * 智能选择视频平台
  * 综合考虑地区和网络连通性
+ * 优先使用用户的语言选择
  */
 export async function selectVideoPlatform(): Promise<VideoPlatform> {
-  // 先尝试从缓存加载
+  // 优先检查用户的语言设置
+  const savedLanguage = localStorage.getItem('app_language');
+  if (savedLanguage === 'zh-CN') {
+    return 'bilibili';
+  }
+  if (savedLanguage === 'en-US') {
+    return 'youtube';
+  }
+
+  // 如果没有语言设置，尝试从缓存加载地区
   const cached = loadCachedRegion();
   if (cached) {
     return getRecommendedPlatform(cached);
   }
 
-  // 检测地区
+  // 最后尝试自动检测地区
   const region = await getRegion();
 
   // 如果是中国地区，推荐 Bilibili

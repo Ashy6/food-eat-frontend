@@ -3,6 +3,7 @@ import ReactMarkdown from 'react-markdown';
 import { ExternalLink, ChevronDown, ChevronUp } from 'lucide-react';
 import type { Recipe } from '../types';
 import { generateVideoLink, selectVideoPlatform, getPlatformName, type VideoPlatform } from '../utils/region';
+import { useLanguage } from '../contexts/LanguageContext';
 import './RecipeCard.css';
 
 interface RecipeCardProps {
@@ -10,11 +11,12 @@ interface RecipeCardProps {
 }
 
 export const RecipeCard = ({ recipe }: RecipeCardProps) => {
+  const { t, language } = useLanguage();
   const [isExpanded, setIsExpanded] = useState(false);
   const [videoPlatform, setVideoPlatform] = useState<VideoPlatform>('youtube');
   const [videoLink, setVideoLink] = useState('');
 
-  // 在组件挂载时检测地区并生成视频链接
+  // 检测地区并生成视频链接，当语言改变时重新检测
   useEffect(() => {
     const initVideoLink = async () => {
       const platform = await selectVideoPlatform();
@@ -25,7 +27,7 @@ export const RecipeCard = ({ recipe }: RecipeCardProps) => {
     };
 
     initVideoLink();
-  }, [recipe.name, recipe.youtube]);
+  }, [recipe.name, recipe.youtube, language]);
 
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
@@ -60,7 +62,7 @@ export const RecipeCard = ({ recipe }: RecipeCardProps) => {
         )}
 
         <div className="recipe-ingredients">
-          <h3>食材清单</h3>
+          <h3>{t('recipe.ingredients')}</h3>
           <ul>
             {recipe.ingredients.map((item, index) => (
               <li key={index}>
@@ -79,7 +81,7 @@ export const RecipeCard = ({ recipe }: RecipeCardProps) => {
             onClick={toggleExpand}
             aria-expanded={isExpanded}
           >
-            <h3>制作步骤</h3>
+            <h3>{t('recipe.instructions')}</h3>
             {isExpanded ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
           </button>
 
@@ -96,10 +98,10 @@ export const RecipeCard = ({ recipe }: RecipeCardProps) => {
             target="_blank"
             rel="noopener noreferrer"
             className="youtube-link"
-            title={`在 ${getPlatformName(videoPlatform)} 上观看`}
+            title={`${t('recipe.video')} - ${getPlatformName(videoPlatform)}`}
           >
             <ExternalLink size={16} />
-            观看视频教程
+            {t('recipe.video')}
             <span className="platform-badge">{getPlatformName(videoPlatform)}</span>
           </a>
         )}
