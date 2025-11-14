@@ -4,6 +4,18 @@ import { useLanguage } from '../contexts/LanguageContext';
 import type { RecipeSearchParams } from '../types';
 import './SearchForm.css';
 
+// type FrontendInput = {
+//   ingredients?: string; // 逗号分隔（可能是中文），示例："鸡胸肉, 西兰花"
+//   category?: string; // 中文类别：如 "清淡的"、"素食"、"海鲜"
+//   cuisine?: string; // 中文菜系：如 "广东菜"、"中国菜"
+//   taste?: string; // 口味，如 "清淡"
+//   timeBudget?: number; // 预算时间（分钟）
+//   servings?: number; // 份数
+//   equipment?: string[]; // 设备，如 ["炒锅"]
+//   limit?: number;
+//   language?: 'zh-CN' | 'en-US';
+// };
+
 interface SearchFormProps {
   onSearch: (params: RecipeSearchParams) => void;
   onRandomSearch: () => void;
