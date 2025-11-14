@@ -1,6 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
 import type { RecipeSearchParams, ApiResponse, RecipeAPIResponse } from '../types';
 import { getFriendlyErrorMessage } from '../constants/strings';
+import { getStoredLanguage } from '../contexts/LanguageContext';
 
 // 配置 API 基础地址
 // 开发环境使用代理，生产环境使用完整 URL
@@ -54,9 +55,8 @@ class FoodEatAPI {
       if (params?.model) {
         queryParams.append('model', params.model);
       }
-      if (params?.language) {
-        queryParams.append('language', params.language);
-      }
+      const lang = params?.language ?? getStoredLanguage();
+      queryParams.append('language', lang);
 
       const url = `/api/recipes${queryParams.toString() ? `?${queryParams.toString()}` : ''}`;
       const response = await this.client.get<RecipeAPIResponse>(url);

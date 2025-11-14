@@ -172,3 +172,18 @@ export const useLanguage = (): LanguageContextType => {
 export function getRegionFromLanguage(lang: Language): 'CN' | 'OTHER' {
   return lang === 'zh-CN' ? 'CN' : 'OTHER';
 }
+
+// 为非 React 环境（例如服务层）提供一个只读的当前语言获取函数
+export function getStoredLanguage(): Language {
+  try {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const saved = window.localStorage.getItem('app_language');
+      if (saved === 'zh-CN' || saved === 'en-US') {
+        return saved as Language;
+      }
+    }
+  } catch (e) {
+    // 忽略读取 localStorage 的异常
+  }
+  return 'zh-CN';
+}
