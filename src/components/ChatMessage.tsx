@@ -1,6 +1,7 @@
 import React from 'react';
 import type { ChatMessage as ChatMessageType } from '../hooks/useChat';
 import { useLanguage } from '../contexts/LanguageContext';
+import ReactMarkdown from 'react-markdown';
 
 interface ChatMessageProps {
   message: ChatMessageType;
@@ -32,7 +33,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message, onQuickAction
             : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200'
         }`}
       >
-        <div className="text-sm whitespace-pre-wrap">{message.content}</div>
+        <ReactMarkdown className="text-sm whitespace-pre-wrap">{message.content}</ReactMarkdown>
 
         {/* Quick action button for assistant messages with dish names */}
         {!isUser && dishNames.length > 0 && onQuickAction && (
