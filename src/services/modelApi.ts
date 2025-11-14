@@ -2,10 +2,7 @@ import axios, { AxiosInstance } from 'axios';
 import type { Model, ModelsResponse } from '../types/model';
 
 // 配置 API 基础地址
-const API_BASE_URL = import.meta.env.DEV
-  ? '' // 开发环境使用代理
-  : (import.meta.env.VITE_API_BASE_URL || 'https://api.rowlandw3ai.shop' || 'https://mastra-food-app.zengjx1998.workers.dev');
-
+const API_BASE_URL = 'https://api.rowlandw3ai.shop'
 class ModelAPI {
   private client: AxiosInstance;
 

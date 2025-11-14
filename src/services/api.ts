@@ -5,10 +5,7 @@ import { getStoredLanguage } from '../contexts/LanguageContext';
 
 // 配置 API 基础地址
 // 开发环境使用代理，生产环境使用完整 URL
-const API_BASE_URL = import.meta.env.DEV
-  ? '' // 开发环境使用代理，baseURL 为空，直接访问 /api
-  : (import.meta.env.VITE_API_BASE_URL || 'https://api.rowlandw3ai.shop' || 'https://mastra-food-app.zengjx1998.workers.dev');
-
+const API_BASE_URL = 'https://api.rowlandw3ai.shop'
 class FoodEatAPI {
   private client: AxiosInstance;
 
@@ -37,6 +34,8 @@ class FoodEatAPI {
    * @returns 完整的 API 响应（包含建议、食谱列表等）
    */
   async getRecipes(params?: RecipeSearchParams): Promise<ApiResponse<RecipeAPIResponse>> {
+    console.log(API_BASE_URL, 'API_BASE_URL');
+
     try {
       const queryParams = new URLSearchParams();
 

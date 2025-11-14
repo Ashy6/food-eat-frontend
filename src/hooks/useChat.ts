@@ -2,10 +2,7 @@ import { useState, useCallback } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 
 // 统一后端 API 基础地址：开发环境使用相对路径，生产环境使用环境变量
-const API_BASE_URL = import.meta.env.DEV
-  ? ''
-  : (import.meta.env.VITE_API_BASE_URL || 'https://api.rowlandw3ai.shop' || 'https://mastra-food-app.zengjx1998.workers.dev');
-
+const API_BASE_URL = 'https://api.rowlandw3ai.shop';
 export interface ChatMessage {
   id: string;
   role: 'user' | 'assistant';
