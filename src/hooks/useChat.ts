@@ -1,6 +1,11 @@
 import { useState, useCallback } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 
+// 统一后端 API 基础地址：开发环境使用相对路径，生产环境使用环境变量
+const API_BASE_URL = import.meta.env.DEV
+  ? ''
+  : (import.meta.env.VITE_API_BASE_URL || 'https://mastra-food-app.zengjx1998.workers.dev');
+
 export interface ChatMessage {
   id: string;
   role: 'user' | 'assistant';
@@ -39,7 +44,7 @@ export const useChat = (): UseChatReturn => {
     setError(null);
 
     try {
-      const response = await fetch('/api/chat', {
+      const response = await fetch(`${API_BASE_URL}/api/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -70,9 +75,10 @@ export const useChat = (): UseChatReturn => {
         timestamp: new Date(),
       };
       setMessages(prev => [...prev, assistantMessage]);
-    } catch (err: any) {
+    } catch (err) {
       console.error('Chat error:', err);
-      setError(err.message || t('chat.error'));
+      const msg = err instanceof Error ? err.message : t('chat.error');
+      setError(msg);
     } finally {
       setIsLoading(false);
     }
