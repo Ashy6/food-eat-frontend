@@ -76,6 +76,14 @@
 /* 右侧：语言选择器容器 */
 .language-container {
   flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.language-icon {
+  color: var(--primary-color);
+  flex-shrink: 0;
 }
 
 .language-selector {
