@@ -9,7 +9,7 @@ export default defineConfig({
     open: true,
     proxy: {
       '/api': {
-        target: 'https://mastra-food-app.zengjx1998.workers.dev',
+        target: 'https://api.rowlandw3ai.shop', //'https://mastra-food-app.zengjx1998.workers.dev',
         changeOrigin: true,
         secure: false,
         rewrite: (path) => path

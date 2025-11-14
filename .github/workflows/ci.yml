@@ -33,7 +33,7 @@ jobs:
       - name: Build project
         run: npm run build
         env:
-          VITE_API_BASE_URL: https://mastra-food-app.zengjx1998.workers.dev
+          VITE_API_BASE_URL: https://api.rowlandw3ai.shop
 
       - name: Upload build artifacts
         if: matrix.node-version == '20.x'
