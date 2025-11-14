@@ -121,34 +121,76 @@
 
   .logo {
     width: 100%;
-    justify-content: space-between;
+    justify-content: center;
   }
 
   .logo h1 {
     font-size: 1.5rem;
   }
 
+  /* 小屏幕下：让两个选择器在同一行，左右对齐 */
   .model-selector-container {
-    width: 100%;
+    width: auto;
     justify-content: flex-start;
+    flex: 1;
   }
 
   .model-selector {
-    flex: 1;
-    min-width: 0;
+    min-width: 120px;
+    max-width: 160px;
+    flex: 0 1 auto;
   }
 
   .language-container {
-    width: 100%;
+    width: auto;
+    flex-shrink: 0;
   }
 
   .language-selector {
-    width: 100%;
+    min-width: 90px;
+    max-width: 110px;
+    width: auto;
+  }
+
+  /* 创建一个容器来放置两个选择器 */
+  .header-content > :nth-child(2),
+  .header-content > :nth-child(3) {
+    display: inline-flex;
   }
 
   .tagline {
     font-size: 0.875rem;
-    text-align: left;
+    text-align: center;
+  }
+}
+
+/* 添加一个包装器样式用于小屏幕选择器布局 */
+@media (max-width: 768px) {
+  .header-content::after {
+    content: '';
+    display: block;
+    width: 100%;
+    order: 2;
+  }
+
+  .model-selector-container {
+    order: 1;
+  }
+
+  .language-container {
+    order: 1;
+  }
+
+  /* 让选择器容器形成左右布局 */
+  .header-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .logo {
+    order: 0;
+    width: 100%;
   }
 }
 
