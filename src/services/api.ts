@@ -7,7 +7,7 @@ import { getStoredLanguage } from '../contexts/LanguageContext';
 // 开发环境使用代理，生产环境使用完整 URL
 const API_BASE_URL = import.meta.env.DEV
   ? '' // 开发环境使用代理，baseURL 为空，直接访问 /api
-  : (import.meta.env.VITE_API_BASE_URL) //|| 'https://api.rowlandw3ai.shop' || 'https://mastra-food-app.zengjx1998.workers.dev');
+  : (import.meta.env.VITE_API_BASE_URL || 'https://api.rowlandw3ai.shop' || 'https://mastra-food-app.zengjx1998.workers.dev');
 
 class FoodEatAPI {
   private client: AxiosInstance;
